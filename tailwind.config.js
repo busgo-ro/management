@@ -1,17 +1,29 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  content: ['./app/**/*.{js,ts,jsx,tsx,mdx}'],
+  content: [
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+  ],
   theme: {
     extend: {
       colors: {
-        background: 'hsl(var(--background))',
-        foreground: 'hsl(var(--foreground))',
+        foreground: "hsl(var(--foreground))",
         btn: {
-          background: 'hsl(var(--btn-background))',
-          'background-hover': 'hsl(var(--btn-background-hover))',
+          "background-hover": "hsl(var(--btn-background-hover))",
+          "login-background": "var(--btn-login-background)",
+          "login-form-background": "var(--login-form-background)",
+        },
+        layout: { "login-background": "var(--layout-background)" },
+        background: {
+          "login-form": "var(--login-form-background)",
+          "main-containers": "var(--main-containers-background)",
+          "main-layout": "var(--main-layout-background)",
+        },
+        text: {
+          "field-background": "#eeeeee",
         },
       },
     },
   },
   plugins: [],
-}
+};
