@@ -3,6 +3,7 @@ module.exports = {
   content: [
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
+    "./constants/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
@@ -12,6 +13,7 @@ module.exports = {
           "background-hover": "hsl(var(--btn-background-hover))",
           "login-background": "var(--btn-login-background)",
           "login-form-background": "var(--login-form-background)",
+          "nav-clicked": "var(--btn-nav-clicked)",
         },
         layout: { "login-background": "var(--layout-background)" },
         background: {
