@@ -2,11 +2,16 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import LogoutButton from "../components/LogoutButton";
 import Login from "./login/page";
+import { cache } from "react";
 
 export const dynamic = "force-dynamic";
 
 export default async function Index() {
-  const supabase = createServerComponentClient({ cookies });
+  const createServerSupabaseClient = cache(() => {
+    const cookieStore = cookies()
+    return createServerComponentClient<any>({ cookies: () => cookieStore })
+    })
+const supabase = createServerSupabaseClient();
 
   const {
     data: { user },

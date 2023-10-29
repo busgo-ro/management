@@ -3,6 +3,7 @@ import "./globals.scss";
 import { cookies } from "next/headers";
 import NavigationDrawer from "@/components/NavigationDrawer/ServerNavigationDrawer";
 import MainContainer from "@/components/MainContainer/MainContainer";
+import { cache } from "react";
 
 export const metadata = {
   title: "BusGO",
@@ -14,7 +15,11 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const supabase = createServerComponentClient({ cookies });
+   const createServerSupabaseClient = cache(() => {
+    const cookieStore = cookies()
+    return createServerComponentClient<any>({ cookies: () => cookieStore })
+    })
+const supabase = createServerSupabaseClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
