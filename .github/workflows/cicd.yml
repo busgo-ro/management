@@ -40,7 +40,6 @@ jobs:
           username: ubuntu
           key: ${{secrets.EC2_SSH_KEY}}
           script: |
-              
               sudo docker pull busgo/frontend:latest
               sudo docker stop frontend || true
               echo "Container stopped"
