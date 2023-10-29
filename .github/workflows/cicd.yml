@@ -41,6 +41,6 @@ jobs:
           key: ${{secrets.EC2_SSH_KEY}}
           script: |
             sudo docker pull busgo/frontend:latest
-            sudo docker stop busgo_frontend || true
-            sudo docker rm busgo_frontend || true
-            sudo docker run -d -p 3000:3000 --name busgo_frontend busgo/frontend:latest
+            sudo docker stop busgo/frontend || true
+            sudo docker rm busgo/frontend || true
+            sudo docker run -d -p 3000:3000 --name busgo/frontend busgo/frontend:latest
