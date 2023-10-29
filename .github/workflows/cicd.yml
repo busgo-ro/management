@@ -43,4 +43,4 @@ jobs:
               echo "Container stopped"
               sudo docker rm frontend  || true
               echo "Container removed"
-              sudo docker run -d --name frontend -p 80:80 busgo/frontend:latest
+              sudo docker run -d --name frontend -p 80:3000 busgo/frontend:latest
