@@ -34,7 +34,7 @@ jobs:
       - name: Docker Pull & Run from Docker Hub
         uses: appleboy/ssh-action@master
         with:
-          host: ${{secrets.EC2_ADDRESS}}
+          host: ec2-52-28-91-40.eu-central-1.compute.amazonaws.com
           username: ubuntu
           key: ${{secrets.EC2_SSH_KEY}}
           script: |
