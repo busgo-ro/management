@@ -40,7 +40,13 @@ jobs:
           username: ubuntu
           key: ${{secrets.EC2_SSH_KEY}}
           script: |
-            sudo docker pull busgo/frontend:latest
-            sudo docker stop busgo-frontend || true
-            sudo docker rm busgo-frontend || true
-            sudo docker run -d -p 3000:3000 --name busgo-frontend busgo/frontend:latest
+              
+              sudo docker pull busgo/frontend:latest
+              if docker ps --format '{{.Names}}' | grep -q "^$busgo-frontend$"; then
+              sudo docker stop busgo-frontend
+              echo "Container stopped"
+              sudo docker rm busgo-frontend
+              echo "Container removed"
+              else
+              sudo docker run -d -p 3000:3000 --name busgo-frontend busgo/frontend:latest
+              fi
