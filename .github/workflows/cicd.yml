@@ -1,37 +1,46 @@
 name: CI/CD
+
 on:
   push:
-    branches: [main]
+    branches:
+      - main
+
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout code
+        uses: actions/checkout@v2
+
       - name: Install dependencies
-      - uses: npm install
-      - name: Builds the Next.js app
-      - uses: npm run build
+        run: npm install
+
+      - name: Build the Next.js app
+        run: npm run build
+
       - name: Docker Login
         env:
           DOCKER_USER: ${{secrets.DOCKER_USER}}
           DOCKER_PASSWORD: ${{secrets.DOCKER_PASSWORD}}
-        run:
+        run: |
           docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+
       - name: Docker Push
         env:
           REPO: busgo/frontend
         run: |
           docker build -t $REPO .
-          docker tag $REPO:latest ${{secrets.DOCKER_USER}}/$REPO:latest
-          docker push ${{secrets.DOCKER_USER}}/$REPO
+          docker tag $REPO:latest $DOCKER_USER/$REPO:latest
+          docker push $DOCKER_USER/$REPO
+
       - name: Docker Pull & Run from Docker Hub
         uses: appleboy/ssh-action@master
         with:
-          host: {{secrets.EC2_ADDRESS}}
+          host: ${{secrets.EC2_ADDRESS}}
           username: ubuntu
           key: ${{secrets.EC2_SSH_KEY}}
           script: |
-              sudo docker pull busgo/frontend:latest
-              sudo docker stop busgo/frontend || true
-              sudo docker rm busgo/frontend || true
-              sudo docker run -d -p 3000:3000 --name busgo/frontend busgo/frontend:latest
+            sudo docker pull busgo/frontend:latest
+            sudo docker stop busgo_frontend || true
+            sudo docker rm busgo_frontend || true
+            sudo docker run -d -p 3000:3000 --name busgo_frontend busgo/frontend:latest
