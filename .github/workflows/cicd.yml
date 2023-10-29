@@ -40,9 +40,10 @@ jobs:
           username: ubuntu
           key: ${{secrets.EC2_SSH_KEY}}
           script: |
+              
               sudo docker pull busgo/frontend:latest
               sudo docker stop frontend || true
               echo "Container stopped"
               sudo docker rm frontend  || true
               echo "Container removed"
-              sudo docker run -d --name frontend -p 80:3000 busgo/frontend:latest
+              sudo docker run -d --name frontend -p 3000:3000 --name frontend busgo/frontend:latest
