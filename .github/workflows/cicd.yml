@@ -30,7 +30,7 @@ jobs:
           REPO: busgo/frontend
         run: |
           docker build -t $REPO .
-          docker tag $REPO:latest $DOCKER_USER/$REPO:latest
+          docker tag $REPO $DOCKER_USER/$REPO:latest
           docker push $DOCKER_USER/$REPO
 
       - name: Docker Pull & Run from Docker Hub
