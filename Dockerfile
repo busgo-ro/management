@@ -6,6 +6,7 @@ COPY package*.json ./
 RUN npm i   
 USER node
 RUN npm run build
-EXPOSE 3000  
+ENV PORT 80
+EXPOSE 80  
 CMD ["npm", "start"] 
 
